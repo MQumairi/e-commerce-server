@@ -1,4 +1,5 @@
-import Address from "./address";
+import Customer from "../Users/Customer";
+import Address from "./Address";
 
 export default class CustomerAddress extends Address {
   customer: Customer;

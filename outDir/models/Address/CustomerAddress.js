@@ -16,12 +16,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var address_1 = __importDefault(require("./address"));
+var Address_1 = __importDefault(require("./Address"));
 var CustomerAddress = /** @class */ (function (_super) {
     __extends(CustomerAddress, _super);
     function CustomerAddress() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return CustomerAddress;
-}(address_1.default));
+}(Address_1.default));
 exports.default = CustomerAddress;
