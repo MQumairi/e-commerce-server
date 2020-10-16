@@ -5,7 +5,10 @@
   "database": "e_commerce_node",
   "synchronize": false,
   "logging": false,
-  "entities": ["Models/**/*.ts"],
-  "migrations": ["TypeOrm/Migration/**/*.ts"],
-  "subscribers": ["TypeOrm/Subscribers/**/*.ts"]
+  "entities": ["src/Models/**/*{.js,.ts}"],
+  "migrations": ["src/TypeOrm/Migrations/**/*.ts"],
+  "subscribers": ["src/TypeOrm/Subscribers/**/*.ts"],
+  "cli": {
+    "migrationsDir": "src/TypeOrm/Migrations"
+  }
 }
