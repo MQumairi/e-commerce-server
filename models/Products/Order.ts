@@ -1,6 +1,8 @@
 import {
   Column,
   Entity,
+  JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -9,7 +11,7 @@ import Address from "../Address/Address";
 import CustomerAddress from "../Address/CustomerAddress";
 import StorageAddress from "../Address/StorageAddress";
 import Customer from "../Users/Customer";
-import Item from "./Item";
+import Product from "./Product";
 
 @Entity()
 export default class Order {
@@ -22,11 +24,12 @@ export default class Order {
   })
   customer: Customer;
 
-  @OneToMany((type) => Item, (item) => item.ordered_in, {
+  @ManyToMany((type) => Product, (product) => product.ordered_in, {
     cascade: false,
     onDelete: "NO ACTION",
   })
-  items: Item[];
+  @JoinColumn()
+  products: Product[];
 
   @ManyToOne(
     (type) => CustomerAddress,
