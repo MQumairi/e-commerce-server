@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "database": "e_commerce_node",
+  "synchronize": false,
+  "logging": false,
+  "entities": ["src/Models/**/*{.js,.ts}"],
+  "migrations": ["src/TypeOrm/Migrations/**/*.ts"],
+  "subscribers": ["src/TypeOrm/Subscribers/**/*.ts"],
+  "cli": {
+    "migrationsDir": "src/TypeOrm/Migrations"
+  }
+}
