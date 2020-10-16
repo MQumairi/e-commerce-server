@@ -8,12 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var Order_1 = __importDefault(require("../Products/Order"));
 var Address = /** @class */ (function () {
     function Address() {
     }
@@ -22,29 +18,25 @@ var Address = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Address.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Address.prototype, "line_1", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Address.prototype, "line_2", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Address.prototype, "city", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Address.prototype, "country", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Address.prototype, "postcode", void 0);
-    __decorate([
-        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.current_address; }),
-        __metadata("design:type", Array)
-    ], Address.prototype, "orders_in", void 0);
     Address = __decorate([
         typeorm_1.Entity(),
         typeorm_1.TableInheritance({ column: { type: "varchar", name: "type" } })

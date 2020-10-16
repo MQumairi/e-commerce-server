@@ -13,30 +13,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var Customer_1 = __importDefault(require("../Users/Customer"));
+var StorageAddress_1 = __importDefault(require("../Address/StorageAddress"));
+var Order_1 = __importDefault(require("./Order"));
 var Product_1 = __importDefault(require("./Product"));
-var Rating = /** @class */ (function () {
-    function Rating() {
+var Item = /** @class */ (function () {
+    function Item() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn(),
         __metadata("design:type", Number)
-    ], Rating.prototype, "id", void 0);
+    ], Item.prototype, "id", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Customer_1.default; }, function (customer) { return customer.published_ratings; }),
-        __metadata("design:type", Customer_1.default)
-    ], Rating.prototype, "customer", void 0);
-    __decorate([
-        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.ratings; }, {
-            cascade: true,
-            onDelete: "CASCADE",
-        }),
+        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.items; }),
         __metadata("design:type", Product_1.default)
-    ], Rating.prototype, "product", void 0);
+    ], Item.prototype, "product", void 0);
     __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", Number)
-    ], Rating.prototype, "score", void 0);
-    return Rating;
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.ManyToOne(function (type) { return Order_1.default; }, function (order) { return order.items; }, {
+            cascade: false,
+            onDelete: "NO ACTION",
+        }),
+        __metadata("design:type", Order_1.default)
+    ], Item.prototype, "ordered_in", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return StorageAddress_1.default; }, function (storageAddress) { return storageAddress.items_in_stock; }, { cascade: true, onDelete: "CASCADE" }),
+        __metadata("design:type", StorageAddress_1.default)
+    ], Item.prototype, "stored_in", void 0);
+    Item = __decorate([
+        typeorm_1.Entity()
+    ], Item);
+    return Item;
 }());
-exports.default = Rating;
+exports.default = Item;

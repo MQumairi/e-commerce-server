@@ -9,7 +9,10 @@ export default class Rating {
   @ManyToOne((type) => Customer, (customer) => customer.published_ratings)
   customer: Customer;
 
-  @ManyToOne((type) => Product, (product) => product.ratings)
+  @ManyToOne((type) => Product, (product) => product.ratings, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
   product: Product;
 
   @Column()

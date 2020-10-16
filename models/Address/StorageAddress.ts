@@ -1,19 +1,28 @@
 import { ChildEntity, Column, OneToMany } from "typeorm";
+import Item from "../Products/Item";
 import Order from "../Products/Order";
 import Product from "../Products/Product";
 import Address from "./Address";
 
 @ChildEntity()
 export default class StorageAddress extends Address {
-  @Column()
+  @Column("text")
   owner: string;
 
-  @Column()
+  @Column("text")
   phone: string;
 
-  @OneToMany((type) => Order, (order) => order.origin)
-  orders: Order[];
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => Order, (order) => order.origin, {
+    cascade: true,
+    onDelete: "NO ACTION",
+  })
+  orders_from?: Order[];
 
-  @OneToMany((type) => Product, (product) => product.stored_in)
-  products_in_stock: Product[];
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => Item, (item) => item.stored_in, {
+    cascade: true,
+    onDelete: "NO ACTION",
+  })
+  items_in_stock?: Item[];
 }

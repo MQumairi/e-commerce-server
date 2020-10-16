@@ -22,14 +22,16 @@ var Role = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Role.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Role.prototype, "name", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Role.prototype, "description", void 0);
     __decorate([
+        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.OneToMany(function (type) { return User_1.default; }, function (users) { return users.role; }),
         __metadata("design:type", Array)
     ], Role.prototype, "users", void 0);

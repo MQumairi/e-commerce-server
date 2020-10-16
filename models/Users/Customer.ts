@@ -14,21 +14,26 @@ export default class Customer extends User {
   @JoinColumn()
   address: CustomerAddress;
 
-  @Column()
+  @Column("text")
   phone: string;
 
-  @Column()
+  @Column("text")
   card_no: string;
 
   @Column()
   card_exp: Date;
 
-  @Column()
+  @Column("text")
   card_cvc: string;
 
-  @OneToMany((type) => Order, (order) => order.customer)
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => Order, (order) => order.customer, {
+    cascade: true,
+    onDelete: "NO ACTION",
+  })
   orders?: Order[];
 
+  @Column({ default: null, nullable: true })
   @OneToMany((type) => Rating, (ratings) => ratings.customer)
-  published_ratings: Rating[];
+  published_ratings?: Rating[];
 }

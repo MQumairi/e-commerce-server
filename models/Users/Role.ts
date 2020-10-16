@@ -6,12 +6,14 @@ export default class Role {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("text")
   name: string;
 
-  @Column()
+  @Column({ default: null, nullable: true })
+  @Column("text")
   description?: string;
 
+  @Column({ default: null, nullable: true })
   @OneToMany((type) => User, (users) => users.role)
-  users: User[];
+  users?: User[];
 }

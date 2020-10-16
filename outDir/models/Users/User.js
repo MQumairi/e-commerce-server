@@ -16,6 +16,7 @@ var Role_1 = __importDefault(require("./Role"));
 var Avatar_1 = __importDefault(require("../Images/Avatar"));
 var typeorm_1 = require("typeorm");
 var ImageAsset_1 = __importDefault(require("../Images/ImageAsset"));
+var UserComment_1 = __importDefault(require("../Products/UserComment"));
 var User = /** @class */ (function () {
     function User() {
     }
@@ -24,40 +25,55 @@ var User = /** @class */ (function () {
         __metadata("design:type", Number)
     ], User.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], User.prototype, "username", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], User.prototype, "password", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], User.prototype, "first_name", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], User.prototype, "last_name", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], User.prototype, "email", void 0);
     __decorate([
-        typeorm_1.OneToOne(function (type) { return Avatar_1.default; }, function (avatar) { return avatar.user; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToOne(function (type) { return Avatar_1.default; }, function (avatar) { return avatar.user; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         typeorm_1.JoinColumn(),
         __metadata("design:type", Avatar_1.default)
     ], User.prototype, "avatar", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return ImageAsset_1.default; }, function (imageAsset) { return imageAsset.uploader; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return ImageAsset_1.default; }, function (imageAsset) { return imageAsset.uploader; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", Array)
     ], User.prototype, "imageAssets", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Role_1.default; }, function (role) { return role.users; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.ManyToOne(function (type) { return Role_1.default; }, function (role) { return role.users; }, {
+            cascade: false,
+        }),
         __metadata("design:type", Role_1.default)
     ], User.prototype, "role", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return UserComment_1.default; }, function (userComent) { return userComent.author; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", Array)
     ], User.prototype, "published_comments", void 0);
     User = __decorate([

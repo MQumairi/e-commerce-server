@@ -23,11 +23,11 @@ var UserComment = /** @class */ (function () {
         __metadata("design:type", Number)
     ], UserComment.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], UserComment.prototype, "title", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], UserComment.prototype, "description", void 0);
     __decorate([
@@ -35,18 +35,25 @@ var UserComment = /** @class */ (function () {
         __metadata("design:type", Date)
     ], UserComment.prototype, "date_posted", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return User_1.default; }, function (user) { return user.published_comments; }),
+        typeorm_1.ManyToOne(function (type) { return User_1.default; }, function (user) { return user.published_comments; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", User_1.default)
     ], UserComment.prototype, "author", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.commnets; }),
+        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.commnets; }, {
+            cascade: true,
+        }),
         __metadata("design:type", Product_1.default)
     ], UserComment.prototype, "product", void 0);
     __decorate([
+        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.ManyToOne(function (type) { return UserComment; }, function (child_comments) { return child_comments.child_comments; }),
         __metadata("design:type", UserComment)
     ], UserComment.prototype, "parent_comment", void 0);
     __decorate([
+        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.OneToMany(function (type) { return UserComment; }, function (parent_comment) { return parent_comment.parent_comment; }),
         __metadata("design:type", Array)
     ], UserComment.prototype, "child_comments", void 0);

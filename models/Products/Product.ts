@@ -1,14 +1,6 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import StorageAddress from "../Address/StorageAddress";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import ProductImage from "../Images/ProductImage";
-import Order from "./Order";
+import Item from "./Item";
 import Rating from "./Rating";
 import UserComment from "./UserComment";
 
@@ -17,33 +9,39 @@ export default class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("text")
   name: string;
 
-  @Column()
+  @Column("text")
   description: string;
 
   @Column()
   price_gbp: number;
 
-  @OneToMany((type) => Rating, (rating) => rating.product)
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => Rating, (rating) => rating.product, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
   ratings?: Rating[];
 
-  @OneToMany((type) => UserComment, (userComment) => userComment.product)
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => UserComment, (userComment) => userComment.product, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
   commnets?: UserComment[];
 
-  @OneToMany((type) => ProductImage, (productImage) => productImage.product)
+  @OneToMany((type) => ProductImage, (productImage) => productImage.product, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
   product_images: ProductImage[];
 
-  @ManyToOne(
-    (type) => StorageAddress,
-    (storageAddress) => storageAddress.products_in_stock
-  )
-  stored_in: StorageAddress;
-
-  @Column()
-  stock: number;
-
-  @ManyToMany((type) => Order, (order) => order.products)
-  orders_for: Order[];
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => Item, (item) => item.product, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
+  items?: Item[];
 }

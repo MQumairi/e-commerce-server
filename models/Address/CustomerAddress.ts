@@ -5,12 +5,17 @@ import Address from "./Address";
 
 @ChildEntity()
 export default class CustomerAddress extends Address {
+  @Column({ default: null, nullable: true })
   @OneToOne((type) => Customer, (customer) => customer.address)
-  customer: Customer;
+  customer?: Customer;
 
   @Column()
   date_assigned_to_customer: Date;
 
-  @OneToMany((type) => Order, (order) => order.destination)
-  orders_to: Order[];
+  @Column({ default: null, nullable: true })
+  @OneToMany((type) => Order, (order) => order.destination, {
+    cascade: false,
+    onDelete: "NO ACTION",
+  })
+  orders_to?: Order[];
 }

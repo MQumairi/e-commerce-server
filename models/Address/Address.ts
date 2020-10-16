@@ -13,21 +13,18 @@ export default class Address {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("text")
   line_1: string;
 
-  @Column()
+  @Column("text")
   line_2: string;
 
-  @Column()
+  @Column("text")
   city: string;
 
-  @Column()
+  @Column("text")
   country: string;
 
-  @Column()
+  @Column("text")
   postcode: string;
-
-  @OneToMany((type) => Order, (order) => order.current_address)
-  orders_in: Order[];
 }

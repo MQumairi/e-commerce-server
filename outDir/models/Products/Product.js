@@ -13,9 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var StorageAddress_1 = __importDefault(require("../Address/StorageAddress"));
 var ProductImage_1 = __importDefault(require("../Images/ProductImage"));
-var Order_1 = __importDefault(require("./Order"));
+var Item_1 = __importDefault(require("./Item"));
 var Rating_1 = __importDefault(require("./Rating"));
 var UserComment_1 = __importDefault(require("./UserComment"));
 var Product = /** @class */ (function () {
@@ -26,11 +25,11 @@ var Product = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Product.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Product.prototype, "name", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Product.prototype, "description", void 0);
     __decorate([
@@ -38,29 +37,36 @@ var Product = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Product.prototype, "price_gbp", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Rating_1.default; }, function (rating) { return rating.product; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return Rating_1.default; }, function (rating) { return rating.product; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", Array)
     ], Product.prototype, "ratings", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return UserComment_1.default; }, function (userComment) { return userComment.product; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return UserComment_1.default; }, function (userComment) { return userComment.product; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", Array)
     ], Product.prototype, "commnets", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return ProductImage_1.default; }, function (productImage) { return productImage.product; }),
+        typeorm_1.OneToMany(function (type) { return ProductImage_1.default; }, function (productImage) { return productImage.product; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", Array)
     ], Product.prototype, "product_images", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return StorageAddress_1.default; }, function (storageAddress) { return storageAddress.products_in_stock; }),
-        __metadata("design:type", StorageAddress_1.default)
-    ], Product.prototype, "stored_in", void 0);
-    __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", Number)
-    ], Product.prototype, "stock", void 0);
-    __decorate([
-        typeorm_1.ManyToMany(function (type) { return Order_1.default; }, function (order) { return order.products; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return Item_1.default; }, function (item) { return item.product; }, {
+            cascade: true,
+            onDelete: "CASCADE",
+        }),
         __metadata("design:type", Array)
-    ], Product.prototype, "orders_for", void 0);
+    ], Product.prototype, "items", void 0);
     Product = __decorate([
         typeorm_1.Entity()
     ], Product);

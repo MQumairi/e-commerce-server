@@ -22,7 +22,7 @@ var ImageAsset = /** @class */ (function () {
         __metadata("design:type", Number)
     ], ImageAsset.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("bytea"),
         __metadata("design:type", String)
     ], ImageAsset.prototype, "data", void 0);
     __decorate([

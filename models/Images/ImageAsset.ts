@@ -13,8 +13,7 @@ export default class ImageAsset {
   @PrimaryGeneratedColumn()
   id: number;
 
-  //TODO: Change type to bytea
-  @Column()
+  @Column("bytea")
   data: string;
 
   @ManyToOne((type) => User, (user) => user.imageAssets)

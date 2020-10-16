@@ -35,6 +35,7 @@ var CustomerAddress = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
+        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.OneToOne(function (type) { return Customer_1.default; }, function (customer) { return customer.address; }),
         __metadata("design:type", Customer_1.default)
     ], CustomerAddress.prototype, "customer", void 0);
@@ -43,7 +44,11 @@ var CustomerAddress = /** @class */ (function (_super) {
         __metadata("design:type", Date)
     ], CustomerAddress.prototype, "date_assigned_to_customer", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.destination; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.destination; }, {
+            cascade: false,
+            onDelete: "NO ACTION",
+        }),
         __metadata("design:type", Array)
     ], CustomerAddress.prototype, "orders_to", void 0);
     CustomerAddress = __decorate([

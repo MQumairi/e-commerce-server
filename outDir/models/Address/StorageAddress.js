@@ -26,8 +26,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
+var Item_1 = __importDefault(require("../Products/Item"));
 var Order_1 = __importDefault(require("../Products/Order"));
-var Product_1 = __importDefault(require("../Products/Product"));
 var Address_1 = __importDefault(require("./Address"));
 var StorageAddress = /** @class */ (function (_super) {
     __extends(StorageAddress, _super);
@@ -35,21 +35,29 @@ var StorageAddress = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], StorageAddress.prototype, "owner", void 0);
     __decorate([
-        typeorm_1.Column(),
+        typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], StorageAddress.prototype, "phone", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.origin; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.origin; }, {
+            cascade: true,
+            onDelete: "NO ACTION",
+        }),
         __metadata("design:type", Array)
-    ], StorageAddress.prototype, "orders", void 0);
+    ], StorageAddress.prototype, "orders_from", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Product_1.default; }, function (product) { return product.stored_in; }),
+        typeorm_1.Column({ default: null, nullable: true }),
+        typeorm_1.OneToMany(function (type) { return Item_1.default; }, function (item) { return item.stored_in; }, {
+            cascade: true,
+            onDelete: "NO ACTION",
+        }),
         __metadata("design:type", Array)
-    ], StorageAddress.prototype, "products_in_stock", void 0);
+    ], StorageAddress.prototype, "items_in_stock", void 0);
     StorageAddress = __decorate([
         typeorm_1.ChildEntity()
     ], StorageAddress);

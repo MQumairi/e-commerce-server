@@ -1,38 +1,44 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import Address from "../Address/Address";
 import CustomerAddress from "../Address/CustomerAddress";
 import StorageAddress from "../Address/StorageAddress";
 import Customer from "../Users/Customer";
-import Product from "./Product";
+import Item from "./Item";
 
 @Entity()
 export default class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Customer, (customer) => customer.orders)
+  @ManyToOne((type) => Customer, (customer) => customer.orders, {
+    cascade: true,
+    onDelete: "NO ACTION",
+  })
   customer: Customer;
 
-  @ManyToMany((type) => Product, (product) => product.orders_for)
-  @JoinColumn()
-  products: Product[];
+  @OneToMany((type) => Item, (item) => item.ordered_in, {
+    cascade: false,
+    onDelete: "NO ACTION",
+  })
+  items: Item[];
 
   @ManyToOne(
     (type) => CustomerAddress,
-    (customerAddress) => customerAddress.orders_to
+    (customerAddress) => customerAddress.orders_to,
+    { cascade: true, onDelete: "NO ACTION" }
   )
   destination: CustomerAddress;
 
   @ManyToOne(
     (type) => StorageAddress,
-    (storageAddress) => storageAddress.orders
+    (storageAddress) => storageAddress.orders_from,
+    { cascade: true, onDelete: "NO ACTION" }
   )
   origin: StorageAddress;
 
@@ -50,7 +56,4 @@ export default class Order {
 
   @Column()
   is_delivered: boolean = false;
-
-  @ManyToOne((type) => Address, (address) => address.orders_in)
-  current_address: Address;
 }

@@ -13,11 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var Address_1 = __importDefault(require("../Address/Address"));
 var CustomerAddress_1 = __importDefault(require("../Address/CustomerAddress"));
 var StorageAddress_1 = __importDefault(require("../Address/StorageAddress"));
 var Customer_1 = __importDefault(require("../Users/Customer"));
-var Product_1 = __importDefault(require("./Product"));
+var Item_1 = __importDefault(require("./Item"));
 var Order = /** @class */ (function () {
     function Order() {
         this.is_shipped = false;
@@ -28,20 +27,25 @@ var Order = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Order.prototype, "id", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Customer_1.default; }, function (customer) { return customer.orders; }),
+        typeorm_1.ManyToOne(function (type) { return Customer_1.default; }, function (customer) { return customer.orders; }, {
+            cascade: true,
+            onDelete: "NO ACTION",
+        }),
         __metadata("design:type", Customer_1.default)
     ], Order.prototype, "customer", void 0);
     __decorate([
-        typeorm_1.ManyToMany(function (type) { return Product_1.default; }, function (product) { return product.orders_for; }),
-        typeorm_1.JoinColumn(),
+        typeorm_1.OneToMany(function (type) { return Item_1.default; }, function (item) { return item.ordered_in; }, {
+            cascade: false,
+            onDelete: "NO ACTION",
+        }),
         __metadata("design:type", Array)
-    ], Order.prototype, "products", void 0);
+    ], Order.prototype, "items", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return CustomerAddress_1.default; }, function (customerAddress) { return customerAddress.orders_to; }),
+        typeorm_1.ManyToOne(function (type) { return CustomerAddress_1.default; }, function (customerAddress) { return customerAddress.orders_to; }, { cascade: true, onDelete: "NO ACTION" }),
         __metadata("design:type", CustomerAddress_1.default)
     ], Order.prototype, "destination", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return StorageAddress_1.default; }, function (storageAddress) { return storageAddress.orders; }),
+        typeorm_1.ManyToOne(function (type) { return StorageAddress_1.default; }, function (storageAddress) { return storageAddress.orders_from; }, { cascade: true, onDelete: "NO ACTION" }),
         __metadata("design:type", StorageAddress_1.default)
     ], Order.prototype, "origin", void 0);
     __decorate([
@@ -64,10 +68,6 @@ var Order = /** @class */ (function () {
         typeorm_1.Column(),
         __metadata("design:type", Boolean)
     ], Order.prototype, "is_delivered", void 0);
-    __decorate([
-        typeorm_1.ManyToOne(function (type) { return Address_1.default; }, function (address) { return address.orders_in; }),
-        __metadata("design:type", Address_1.default)
-    ], Order.prototype, "current_address", void 0);
     Order = __decorate([
         typeorm_1.Entity()
     ], Order);
