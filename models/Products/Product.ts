@@ -1,13 +1,6 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import ProductImage from "../Images/ProductImage";
-import Order from "./Order";
+import OrderToProduct from "./OrderToProduct";
 import Rating from "./Rating";
 import UserComment from "./UserComment";
 
@@ -48,7 +41,6 @@ export default class Product {
   @Column()
   stock: number;
 
-  @ManyToMany((type) => Order, (order) => order.products)
-  @Column({ default: null, nullable: true })
-  ordered_in?: Order;
+  @OneToMany((type) => OrderToProduct, (order) => order.products)
+  orders?: OrderToProduct[];
 }

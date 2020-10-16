@@ -1,17 +1,14 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import Address from "../Address/Address";
 import CustomerAddress from "../Address/CustomerAddress";
 import StorageAddress from "../Address/StorageAddress";
 import Customer from "../Users/Customer";
-import Product from "./Product";
+import OrderToProduct from "./OrderToProduct";
 
 @Entity()
 export default class Order {
@@ -23,13 +20,6 @@ export default class Order {
     onDelete: "NO ACTION",
   })
   customer: Customer;
-
-  @ManyToMany((type) => Product, (product) => product.ordered_in, {
-    cascade: false,
-    onDelete: "NO ACTION",
-  })
-  @JoinColumn()
-  products: Product[];
 
   @ManyToOne(
     (type) => CustomerAddress,
@@ -59,4 +49,7 @@ export default class Order {
 
   @Column()
   is_delivered: boolean = false;
+
+  @OneToMany((type) => OrderToProduct, (product) => product.order)
+  products: OrderToProduct[];
 }
