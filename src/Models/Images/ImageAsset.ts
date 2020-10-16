@@ -15,7 +15,4 @@ export default class ImageAsset {
 
   @Column("bytea")
   data: string;
-
-  // @ManyToOne((type) => User, (user) => user.imageAssets)
-  // uploader: User;
 }

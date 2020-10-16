@@ -25,12 +25,12 @@ export default class Product {
   @Column()
   price_gbp: number;
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => Rating, (rating) => rating.product)
+  @OneToMany((type) => Rating, (rating) => rating.product, { nullable: true })
   ratings?: Rating[];
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => UserComment, (userComment) => userComment.product)
+  @OneToMany((type) => UserComment, (userComment) => userComment.product, {
+    nullable: true,
+  })
   commnets?: UserComment[];
 
   @OneToMany((type) => ProductImage, (productImage) => productImage.product)

@@ -12,7 +12,6 @@ export default class Role {
   @Column("text", { default: null, nullable: true })
   description?: string;
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => User, (users) => users.role)
+  @OneToMany((type) => User, (users) => users.role, { nullable: true })
   users?: User[];
 }

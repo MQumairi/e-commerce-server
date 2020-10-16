@@ -34,8 +34,7 @@ export default class User {
   @Column("text")
   email: string;
 
-  // @Column({ default: null, nullable: true })
-  @OneToOne((type) => Avatar, (avatar) => avatar.user)
+  @OneToOne((type) => Avatar, (avatar) => avatar.user, { nullable: true })
   @JoinColumn()
   avatar?: Avatar;
 
@@ -46,13 +45,13 @@ export default class User {
   // })
   // imageAssets?: ImageAsset[];
 
-  // @Column({ default: null, nullable: true })
   @ManyToOne((type) => Role, (role) => role.users, {
-    cascade: false,
+    nullable: true,
   })
   role?: Role;
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => UserComment, (userComent) => userComent.author)
+  @OneToMany((type) => UserComment, (userComent) => userComent.author, {
+    nullable: true,
+  })
   published_comments?: UserComment[];
 }

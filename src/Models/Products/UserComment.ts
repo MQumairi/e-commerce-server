@@ -28,17 +28,17 @@ export default class UserComment {
   @ManyToOne((type) => Product, (product) => product.commnets)
   product: Product;
 
-  // @Column({ default: null, nullable: true })
   @ManyToOne(
     (type) => UserComment,
-    (child_comments) => child_comments.child_comments
+    (child_comments) => child_comments.child_comments,
+    { nullable: true }
   )
   parent_comment?: UserComment;
 
-  // @Column({ default: null, nullable: true })
   @OneToMany(
     (type) => UserComment,
-    (parent_comment) => parent_comment.parent_comment
+    (parent_comment) => parent_comment.parent_comment,
+    { nullable: true }
   )
   child_comments?: UserComment[];
 }

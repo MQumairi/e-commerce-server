@@ -25,11 +25,11 @@ export default class Customer extends User {
   @Column("text")
   card_cvc: string;
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => Order, (order) => order.customer)
+  @OneToMany((type) => Order, (order) => order.customer, { nullable: true })
   orders?: Order[];
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => Rating, (ratings) => ratings.customer)
+  @OneToMany((type) => Rating, (ratings) => ratings.customer, {
+    nullable: true,
+  })
   published_ratings?: Rating[];
 }

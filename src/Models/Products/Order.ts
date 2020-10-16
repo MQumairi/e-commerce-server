@@ -27,7 +27,7 @@ export default class Order {
 
   @ManyToOne(
     (type) => StorageAddress,
-    (storageAddress) => storageAddress.orders_from
+    (storageAddress) => storageAddress.orders
   )
   origin: StorageAddress;
 

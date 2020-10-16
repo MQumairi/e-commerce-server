@@ -11,11 +11,11 @@ export default class StorageAddress extends Address {
   @Column("text")
   phone: string;
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => Order, (order) => order.origin)
-  orders_from?: Order[];
+  @OneToMany((type) => Order, (order) => order.origin, { nullable: true })
+  orders?: Order[];
 
-  // @Column({ default: null, nullable: true })
-  @OneToMany((type) => Product, (product) => product.stored_in)
+  @OneToMany((type) => Product, (product) => product.stored_in, {
+    nullable: true,
+  })
   products_in_stock?: Product[];
 }
