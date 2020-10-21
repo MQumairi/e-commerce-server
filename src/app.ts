@@ -1,17 +1,17 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import path from "path";
 import userController from "./Controllers/UserController";
 import storageAddressController from "./Controllers/StorageAddressController";
-
-console.log(path.join(__dirname, "Models", "**", "*.{ts,js}"));
+import uploadSample from "./Functions/ImageUploader";
 
 dotenv.config();
 
 createConnection();
+
+// uploadSample("/Users/mqumairi/Desktop/flowers.jpg");
 
 const app = express();
 app.use(bodyParser.json());

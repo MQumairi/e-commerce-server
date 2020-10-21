@@ -23,23 +23,20 @@ var OrderToProduct = /** @class */ (function () {
         __metadata("design:type", Number)
     ], OrderToProduct.prototype, "id", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Order_1.default; }, function (order) { return order.products; }, {
-            cascade: false,
-            onDelete: "NO ACTION",
-        }),
+        typeorm_1.ManyToOne(function (type) { return Order_1.default; }, function (order) { return order.products; }),
         __metadata("design:type", Order_1.default)
     ], OrderToProduct.prototype, "order", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.orders; }, {
-            cascade: false,
-            onDelete: "NO ACTION",
-        }),
+        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.orders; }),
         __metadata("design:type", Product_1.default)
     ], OrderToProduct.prototype, "products", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Number)
     ], OrderToProduct.prototype, "quantity", void 0);
+    OrderToProduct = __decorate([
+        typeorm_1.Entity()
+    ], OrderToProduct);
     return OrderToProduct;
 }());
 exports.default = OrderToProduct;

@@ -26,13 +26,11 @@ var Role = /** @class */ (function () {
         __metadata("design:type", String)
     ], Role.prototype, "name", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.Column("text"),
+        typeorm_1.Column("text", { default: null, nullable: true }),
         __metadata("design:type", String)
     ], Role.prototype, "description", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.OneToMany(function (type) { return User_1.default; }, function (users) { return users.role; }),
+        typeorm_1.OneToMany(function (type) { return User_1.default; }, function (users) { return users.role; }, { nullable: true }),
         __metadata("design:type", Array)
     ], Role.prototype, "users", void 0);
     Role = __decorate([
