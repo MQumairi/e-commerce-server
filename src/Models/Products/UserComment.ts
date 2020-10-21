@@ -25,7 +25,7 @@ export default class UserComment {
   @ManyToOne((type) => User)
   author: User;
 
-  @ManyToOne((type) => Product, (product) => product.commnets)
+  @ManyToOne((type) => Product, (product) => product.comments)
   product: Product;
 
   @ManyToOne(

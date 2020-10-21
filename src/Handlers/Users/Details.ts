@@ -7,7 +7,7 @@ const Details = async (
   res: Response
 ): Promise<User | undefined> => {
   const id = +req.params.id;
-  const user = getRepository(User).findOne(id);
+  const user = await getRepository(User).findOne(id);
 
   if (user === undefined) res.status(404).send("User not found");
   res.json(user);

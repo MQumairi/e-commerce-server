@@ -31,7 +31,7 @@ export default class Product {
   @OneToMany((type) => UserComment, (userComment) => userComment.product, {
     nullable: true,
   })
-  commnets?: UserComment[];
+  comments?: UserComment[];
 
   @OneToMany((type) => ProductImage, (productImage) => productImage.product)
   product_images: ProductImage[];

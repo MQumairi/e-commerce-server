@@ -20,7 +20,7 @@ const Edit = async (req: Request, res: Response): Promise<User | undefined> => {
   foundUser = EditMapper(foundUser, request);
 
   //Save to database
-  userRepo.save(foundUser!);
+  await userRepo.save(foundUser!);
 
   //Respond with message
   res.status(201).send(foundUser);

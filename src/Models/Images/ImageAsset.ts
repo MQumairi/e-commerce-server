@@ -13,6 +13,6 @@ export default class ImageAsset {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("bytea")
+  @Column("text")
   data: string;
 }

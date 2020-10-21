@@ -8,27 +8,27 @@ import Delete from "../Handlers/Users/Delete";
 const userController = Router();
 
 //List all users
-userController.get("/users", async (req: Request, res: Response) => {
+userController.get("/", async (req: Request, res: Response) => {
   await List(req, res);
 });
 
 //Get specific user by Id
-userController.get("/users/:id", async (req: Request, res: Response) => {
+userController.get("/:id", async (req: Request, res: Response) => {
   await Details(req, res);
 });
 
 //Create a user
-userController.post("/users", async (req: Request, res: Response) => {
+userController.post("/", async (req: Request, res: Response) => {
   await Create(req, res);
 });
 
 //Edit a user
-userController.put("/users/:id", async (req: Request, res: Response) => {
+userController.put("/:id", async (req: Request, res: Response) => {
   await Edit(req, res);
 });
 
 //Delete a user
-userController.delete("/users/:id", async (req: Request, res: Response) => {
+userController.delete("/:id", async (req: Request, res: Response) => {
   await Delete(req, res);
 });
 
