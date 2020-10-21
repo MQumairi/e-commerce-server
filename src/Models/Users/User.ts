@@ -11,13 +11,13 @@ import {
   TableInheritance,
 } from "typeorm";
 // import ImageAsset from "../Images/ImageAsset";
-import UserComment from "../Products/UserComment";
+// import UserComment from "../Products/UserComment";
 
 @Entity()
 @TableInheritance({ column: { type: "varchar", name: "type" } })
 export default class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column("text")
   username: string;
@@ -50,8 +50,6 @@ export default class User {
   })
   role?: Role;
 
-  @OneToMany((type) => UserComment, (userComent) => userComent.author, {
-    nullable: true,
-  })
-  published_comments?: UserComment[];
+  // @OneToMany((type) => UserComment, (userComent) => userComent.author)
+  // published_comments?: UserComment[];
 }

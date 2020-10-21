@@ -4,23 +4,23 @@ import dotenv from "dotenv";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import path from "path";
-
-console.log("🏁 Start 🏁");
+import userController from "./Controllers/UserController";
+import storageAddressController from "./Controllers/StorageAddressController";
 
 console.log(path.join(__dirname, "Models", "**", "*.{ts,js}"));
 
 dotenv.config();
 
-createConnection().then((connection) => {
-  const app = express();
-  app.use(bodyParser.json());
-  const port = process.env.PORT || 3001;
+createConnection();
 
-  app.get("/", function (req: Request, res: Response) {
-    res.json({ message: "Hello world" });
-  });
+const app = express();
+app.use(bodyParser.json());
+const port = process.env.PORT || 5000;
 
-  app.listen(port, () => {
-    console.log("listening on " + port);
-  });
+app.use("/api/users", userController);
+app.use("/api/storage-addresses", storageAddressController);
+
+app.listen(port, () => {
+  console.log("🦻 listening on " + port);
 });
+// });

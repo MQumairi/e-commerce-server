@@ -22,10 +22,10 @@ export default class UserComment {
   @Column()
   date_posted: Date;
 
-  @ManyToOne((type) => User, (user) => user.published_comments)
+  @ManyToOne((type) => User)
   author: User;
 
-  @ManyToOne((type) => Product, (product) => product.commnets)
+  @ManyToOne((type) => Product, (product) => product.comments)
   product: Product;
 
   @ManyToOne(
