@@ -4,23 +4,26 @@ import dotenv from "dotenv";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import path from "path";
-
-console.log("🏁 Start 🏁");
+import userController from "./Controllers/UserController";
 
 console.log(path.join(__dirname, "Models", "**", "*.{ts,js}"));
 
 dotenv.config();
 
-createConnection().then((connection) => {
-  const app = express();
-  app.use(bodyParser.json());
-  const port = process.env.PORT || 3001;
+createConnection();
 
-  app.get("/", function (req: Request, res: Response) {
-    res.json({ message: "Hello world" });
-  });
+// createConnection().then((connection) => {
+// let defaultConnection = connection;
+const app = express();
+app.use(bodyParser.json());
+const port = process.env.PORT || 5000;
 
-  app.listen(port, () => {
-    console.log("listening on " + port);
-  });
+//   const userRepo = getRepository(User);
+//   userRepo.create(testUser);
+
+app.use("/api", userController);
+
+app.listen(port, () => {
+  console.log("🦻 listening on " + port);
 });
+// });
