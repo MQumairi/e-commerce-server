@@ -9,7 +9,10 @@ const Details = async (
   const id = +req.params.id;
   const product = await getRepository(Product).findOne(id);
 
-  if (product === undefined) res.status(404).send("Product not found");
+  if (product === undefined) {
+    res.status(404).send("Product not found");
+    return;
+  }
   res.json(product);
 
   return product;

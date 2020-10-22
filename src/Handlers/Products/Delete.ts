@@ -11,7 +11,10 @@ const Delete = async (req: Request, res: Response): Promise<void> => {
   const id = +req.params.id;
   const productRepo = getRepository(Product);
   const product = await productRepo.findOne(id);
-  if (product === undefined) res.status(404).send("Not found");
+  if (product === undefined) {
+    res.status(404).send("Not found");
+    return;
+  }
 
   //Delete the product's iamage
   const productImageRepo = getRepository(ProductImage);

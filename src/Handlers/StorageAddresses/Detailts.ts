@@ -9,8 +9,10 @@ const Details = async (
   const id = +req.params.id;
   const storageAddress = await getRepository(StorageAddress).findOne(id);
 
-  if (storageAddress === undefined)
+  if (storageAddress === undefined) {
     res.status(404).send("StorageAddress not found");
+    return;
+  }
   res.json(storageAddress);
 
   return storageAddress;

@@ -6,7 +6,10 @@ const Delete = async (req: Request, res: Response): Promise<void> => {
   const id = +req.params.id;
   const userRepo = getRepository(User);
   const user = await userRepo.findOne(id);
-  if (user === undefined) return;
+  if (user === undefined) {
+    res.status(404).send("User not found");
+    return;
+  }
   await userRepo.remove(user!);
   res.status(200).send("Removed " + user.username);
 };

@@ -14,7 +14,10 @@ const Edit = async (
   let foundProduct = await productRepo.findOne(id);
 
   //Check that they exist
-  if (foundProduct === undefined) res.status(404).send("Product not found");
+  if (foundProduct === undefined) {
+    res.status(404).send("Product not found");
+    return;
+  }
 
   //Get the requested changes
   let request = req.body;
