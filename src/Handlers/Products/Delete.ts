@@ -2,20 +2,11 @@ import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import ProductImage from "../../Models/Images/ProductImage";
 import Product from "../../Models/Products/Product";
-import cloudinary from "cloudinary";
-import dotenv from "dotenv";
+import { deleteImage } from "../../Functions/ImageUploader";
 
 //TODO: Need to delete the images when deleting the product
 
 const Delete = async (req: Request, res: Response): Promise<void> => {
-  dotenv.config();
-
-  cloudinary.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUDNAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET,
-  });
-
   //Find the product
   const id = +req.params.id;
   const productRepo = getRepository(Product);
@@ -25,11 +16,10 @@ const Delete = async (req: Request, res: Response): Promise<void> => {
   //Delete the product's iamage
   const productImageRepo = getRepository(ProductImage);
 
-  product.product_images.forEach((productImage) => {
+  product.product_images.forEach(async (productImage) => {
     console.log("Deleting " + productImage.public_id);
-    cloudinary.v2.uploader.destroy(productImage.public_id, async () => {
-      await productImageRepo.remove(productImage);
-    });
+    await deleteImage(productImage.public_id);
+    await productImageRepo.remove(productImage);
   });
 
   //Delete the product

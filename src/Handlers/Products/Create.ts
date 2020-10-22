@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import ProductImage from "../../Models/Images/ProductImage";
-import fs from "fs";
-import cloudinary from "cloudinary";
-import dotenv from "dotenv";
 import Product from "../../Models/Products/Product";
 import { getRepository } from "typeorm";
 import StorageAddress from "../../Models/Address/StorageAddress";
+import uploadImages from "../../Functions/ImageUploader";
 
 const Create = async (req: Request, res: Response) => {
   //The repository
@@ -35,31 +33,20 @@ const Create = async (req: Request, res: Response) => {
   //Create the images
   const files = req.files;
 
-  dotenv.config();
+  //NEW STUFF START
+  let images = await uploadImages(files);
 
-  cloudinary.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUDNAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET,
+  //NEW STUFF END
+
+  images.forEach(async (image) => {
+    let productImage: ProductImage = {
+      data: image.secure_url,
+      public_id: image.public_id,
+      product: product,
+    };
+
+    await productImageRepo.save(productImage);
   });
-
-  for (let i = 0; i < files.length; i++) {
-    cloudinary.v2.uploader
-      .upload_stream(async (err, result) => {
-        if (err) {
-          console.log(err);
-        }
-
-        let productImage: ProductImage = {
-          data: result.secure_url,
-          public_id: result.public_id,
-          product: product,
-        };
-
-        await productImageRepo.save(productImage);
-      })
-      .end(files[i].buffer);
-  }
 
   res.status(200).send(req.body);
 };

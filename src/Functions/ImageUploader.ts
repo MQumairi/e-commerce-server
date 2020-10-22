@@ -1,5 +1,11 @@
 import cloudinary from "cloudinary";
 import dotenv from "dotenv";
+import streamifier from "streamifier";
+
+export interface ICloudinaryImage {
+  public_id: string;
+  secure_url: string;
+}
 
 dotenv.config();
 
@@ -9,40 +15,61 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-let uploadSample = (image: string) => {
-  cloudinary.v2.uploader.upload(image, function (error, result) {
-    console.log(result, error);
+//*** UPLOAD */
+//A function that takes in an array of Multer Files and outputs and array of ICloudinaryImage objects
+const uploadImages = async (
+  fileArray:
+    | {
+        [fieldname: string]: Express.Multer.File[];
+      }
+    | Express.Multer.File[]
+): Promise<ICloudinaryImage[]> => {
+  let images: ICloudinaryImage[] = [];
+  for (let i = 0; i < fileArray.length; i++) {
+    console.log("The Image: ");
+    console.log(fileArray[i]);
+
+    let result: any = await asyncStreamUpload(fileArray[i]);
+
+    console.log("In uploadImages loop");
+    console.log(result);
+
+    let uploadedImage: ICloudinaryImage = {
+      public_id: result.public_id,
+      secure_url: result.secure_url,
+    };
+
+    images.push(uploadedImage);
+  }
+  return images;
+};
+
+let streamUpload = (file: Express.Multer.File) => {
+  return new Promise((resolve, reject) => {
+    let stream = cloudinary.v2.uploader.upload_stream((error, result) => {
+      if (result) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    });
+
+    streamifier.createReadStream(file.buffer).pipe(stream);
   });
 };
 
-// What is returned (result object):
-// {
-//     asset_id: '69c1e0055eaba366bd123f2d7d837b75',
-//     public_id: 'ixwfnzu9ibxo5dptgncw',
-//     version: 1603312148,
-//     version_id: '13ee5dde119d138cf69fd99be2b22d74',
-//     signature: 'f428f05c460031f343cdc0340657ef8c4e31e63b',
-//     width: 346,
-//     height: 230,
-//     format: 'jpg',
-//     resource_type: 'image',
-//     created_at: '2020-10-21T20:29:08Z',
-//     tags: [],
-//     bytes: 36072,
-//     type: 'upload',
-//     etag: '54017c46c5286880c1b59d1e4bd66176',
-//     placeholder: false,
-//     url: 'http://res.cloudinary.com/dravdc8rp/image/upload/v1603312148/ixwfnzu9ibxo5dptgncw.jpg',
-//     secure_url: 'https://res.cloudinary.com/dravdc8rp/image/upload/v1603312148/ixwfnzu9ibxo5dptgncw.jpg',
-//     original_filename: 'flowers'
-//   }
+async function asyncStreamUpload(file: Express.Multer.File) {
+  let result = await streamUpload(file);
+  console.log("In asyncStreamUpload");
+  console.log(result);
 
-export default uploadSample;
+  return result;
+}
 
-// export const Cloudinary = {
+export default uploadImages;
 
-//     upload: async (image: string) => {
-//         const res = await cloudinary.v2.uploader.upload();
-//     }
-
-//   };
+//*** DELETE */
+//A function that takes in an image public id, and deletes the image from Cloudinary
+export const deleteImage = async (public_id: string) => {
+  await cloudinary.v2.uploader.destroy(public_id);
+};

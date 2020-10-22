@@ -3,8 +3,6 @@ import { getRepository } from "typeorm";
 import EditMapper from "../../Functions/EditMapper";
 import Product from "../../Models/Products/Product";
 
-//Need to find a way to edit the images
-
 const Edit = async (
   req: Request,
   res: Response
