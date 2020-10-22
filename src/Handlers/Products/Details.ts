@@ -13,7 +13,7 @@ const Details = async (
     res.status(404).send("Product not found");
     return;
   }
-  res.json(product);
+  res.status(200).send(product);
 
   return product;
 };

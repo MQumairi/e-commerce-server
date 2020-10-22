@@ -9,7 +9,7 @@ import {
 @TableInheritance({ column: { type: "varchar", name: "type" } })
 export default class Address {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column("text")
   line_1: string;

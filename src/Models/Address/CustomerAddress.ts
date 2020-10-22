@@ -10,8 +10,8 @@ export default class CustomerAddress extends Address {
   })
   customer?: Customer;
 
-  @Column()
-  date_assigned_to_customer: Date;
+  @Column("date")
+  date_assigned_to_customer: string;
 
   @OneToMany((type) => Order, (order) => order.destination, { nullable: true })
   orders_to?: Order[];
