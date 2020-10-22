@@ -27,10 +27,7 @@ var Order = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Order.prototype, "id", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Customer_1.default; }, function (customer) { return customer.orders; }, {
-            cascade: true,
-            onDelete: "NO ACTION",
-        }),
+        typeorm_1.ManyToOne(function (type) { return Customer_1.default; }, function (customer) { return customer.orders; }),
         __metadata("design:type", Customer_1.default)
     ], Order.prototype, "customer", void 0);
     __decorate([
@@ -38,7 +35,7 @@ var Order = /** @class */ (function () {
         __metadata("design:type", CustomerAddress_1.default)
     ], Order.prototype, "destination", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return StorageAddress_1.default; }, function (storageAddress) { return storageAddress.orders_from; }, { cascade: true, onDelete: "NO ACTION" }),
+        typeorm_1.ManyToOne(function (type) { return StorageAddress_1.default; }, function (storageAddress) { return storageAddress.orders; }),
         __metadata("design:type", StorageAddress_1.default)
     ], Order.prototype, "origin", void 0);
     __decorate([

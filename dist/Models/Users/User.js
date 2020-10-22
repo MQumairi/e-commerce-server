@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Role_1 = __importDefault(require("./Role"));
 var Avatar_1 = __importDefault(require("../Images/Avatar"));
 var typeorm_1 = require("typeorm");
+// import ImageAsset from "../Images/ImageAsset";
+// import UserComment from "../Products/UserComment";
 var User = /** @class */ (function () {
     function User() {
     }
@@ -43,18 +45,13 @@ var User = /** @class */ (function () {
         __metadata("design:type", String)
     ], User.prototype, "email", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.OneToOne(function (type) { return Avatar_1.default; }, function (avatar) { return avatar.user; }, {
-            cascade: true,
-            onDelete: "CASCADE",
-        }),
+        typeorm_1.OneToOne(function (type) { return Avatar_1.default; }, function (avatar) { return avatar.user; }, { nullable: true }),
         typeorm_1.JoinColumn(),
         __metadata("design:type", Avatar_1.default)
     ], User.prototype, "avatar", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.ManyToOne(function (type) { return Role_1.default; }, function (role) { return role.users; }, {
-            cascade: false,
+            nullable: true,
         }),
         __metadata("design:type", Role_1.default)
     ], User.prototype, "role", void 0);

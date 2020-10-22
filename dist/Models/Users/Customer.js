@@ -57,16 +57,13 @@ var Customer = /** @class */ (function (_super) {
         __metadata("design:type", String)
     ], Customer.prototype, "card_cvc", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.customer; }, {
-            cascade: true,
-            onDelete: "NO ACTION",
-        }),
+        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.customer; }, { nullable: true }),
         __metadata("design:type", Array)
     ], Customer.prototype, "orders", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.OneToMany(function (type) { return Rating_1.default; }, function (ratings) { return ratings.customer; }),
+        typeorm_1.OneToMany(function (type) { return Rating_1.default; }, function (ratings) { return ratings.customer; }, {
+            nullable: true,
+        }),
         __metadata("design:type", Array)
     ], Customer.prototype, "published_ratings", void 0);
     Customer = __decorate([

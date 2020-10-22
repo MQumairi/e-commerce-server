@@ -11,7 +11,10 @@ const Edit = async (req: Request, res: Response): Promise<User | undefined> => {
   let foundUser = await userRepo.findOne(id);
 
   //Check that they exist
-  if (foundUser === undefined) res.status(404).send("User not found");
+  if (foundUser === undefined) {
+    res.status(404).send("User not found");
+    return;
+  }
 
   //Get the requested changes
   let request = req.body;

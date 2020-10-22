@@ -27,16 +27,16 @@ var Rating = /** @class */ (function () {
         __metadata("design:type", Customer_1.default)
     ], Rating.prototype, "customer", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.ratings; }, {
-            cascade: true,
-            onDelete: "CASCADE",
-        }),
+        typeorm_1.ManyToOne(function (type) { return Product_1.default; }, function (product) { return product.ratings; }),
         __metadata("design:type", Product_1.default)
     ], Rating.prototype, "product", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Number)
     ], Rating.prototype, "score", void 0);
+    Rating = __decorate([
+        typeorm_1.Entity()
+    ], Rating);
     return Rating;
 }());
 exports.default = Rating;

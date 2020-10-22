@@ -43,18 +43,12 @@ var StorageAddress = /** @class */ (function (_super) {
         __metadata("design:type", String)
     ], StorageAddress.prototype, "phone", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.origin; }, {
-            cascade: true,
-            onDelete: "NO ACTION",
-        }),
+        typeorm_1.OneToMany(function (type) { return Order_1.default; }, function (order) { return order.origin; }, { nullable: true }),
         __metadata("design:type", Array)
-    ], StorageAddress.prototype, "orders_from", void 0);
+    ], StorageAddress.prototype, "orders", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.OneToMany(function (type) { return Product_1.default; }, function (product) { return product.stored_in; }, {
-            cascade: true,
-            onDelete: "NO ACTION",
+            nullable: true,
         }),
         __metadata("design:type", Array)
     ], StorageAddress.prototype, "products_in_stock", void 0);

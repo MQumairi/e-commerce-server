@@ -8,7 +8,8 @@ import User from "./User";
 export default class Customer extends User {
   @OneToOne(
     (type) => CustomerAddress,
-    (customerAdress) => customerAdress.customer
+    (customerAdress) => customerAdress.customer,
+    { eager: true }
   )
   @JoinColumn()
   address: CustomerAddress;

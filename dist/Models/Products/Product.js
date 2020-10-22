@@ -38,26 +38,17 @@ var Product = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Product.prototype, "price_gbp", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
-        typeorm_1.OneToMany(function (type) { return Rating_1.default; }, function (rating) { return rating.product; }, {
-            cascade: true,
-            onDelete: "CASCADE",
-        }),
+        typeorm_1.OneToMany(function (type) { return Rating_1.default; }, function (rating) { return rating.product; }, { nullable: true }),
         __metadata("design:type", Array)
     ], Product.prototype, "ratings", void 0);
     __decorate([
-        typeorm_1.Column({ default: null, nullable: true }),
         typeorm_1.OneToMany(function (type) { return UserComment_1.default; }, function (userComment) { return userComment.product; }, {
-            cascade: true,
-            onDelete: "CASCADE",
+            nullable: true,
         }),
         __metadata("design:type", Array)
-    ], Product.prototype, "commnets", void 0);
+    ], Product.prototype, "comments", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return ProductImage_1.default; }, function (productImage) { return productImage.product; }, {
-            cascade: true,
-            onDelete: "CASCADE",
-        }),
+        typeorm_1.OneToMany(function (type) { return ProductImage_1.default; }, function (productImage) { return productImage.product; }),
         __metadata("design:type", Array)
     ], Product.prototype, "product_images", void 0);
     __decorate([

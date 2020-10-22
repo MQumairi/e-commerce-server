@@ -14,8 +14,10 @@ const Edit = async (
   let foundStorageAddress = await storageAddressRepo.findOne(id);
 
   //Check that they exist
-  if (foundStorageAddress === undefined)
+  if (foundStorageAddress === undefined) {
     res.status(404).send("StorageAddress not found");
+    return;
+  }
 
   //Get the requested changes
   let request = req.body;
