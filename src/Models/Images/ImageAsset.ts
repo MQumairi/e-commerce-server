@@ -11,7 +11,7 @@ import {
 @TableInheritance({ column: { type: "varchar", name: "type" } })
 export default class ImageAsset {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column("text")
   data: string;

@@ -14,7 +14,7 @@ import UserComment from "./UserComment";
 @Entity()
 export default class Product {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column("text")
   name: string;
@@ -34,7 +34,7 @@ export default class Product {
   comments?: UserComment[];
 
   @OneToMany((type) => ProductImage, (productImage) => productImage.product)
-  product_images: ProductImage[];
+  product_images?: ProductImage[];
 
   @Column()
   stock: number;
