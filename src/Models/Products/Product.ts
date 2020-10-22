@@ -33,7 +33,9 @@ export default class Product {
   })
   comments?: UserComment[];
 
-  @OneToMany((type) => ProductImage, (productImage) => productImage.product)
+  @OneToMany((type) => ProductImage, (productImage) => productImage.product, {
+    eager: true,
+  })
   product_images?: ProductImage[];
 
   @Column()

@@ -52,6 +52,7 @@ const Create = async (req: Request, res: Response) => {
 
         let productImage: ProductImage = {
           data: result.secure_url,
+          public_id: result.public_id,
           product: product,
         };
 

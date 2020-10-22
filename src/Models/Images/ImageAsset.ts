@@ -15,4 +15,7 @@ export default class ImageAsset {
 
   @Column("text")
   data: string;
+
+  @Column("text")
+  public_id: string;
 }
