@@ -1,11 +1,14 @@
+import { format } from "date-fns";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import CustomerAddress from "../../Models/Address/CustomerAddress";
 import Customer from "../../Models/Users/Customer";
-import { format } from "date-fns";
 import bcrypt from "bcrypt";
 
-const Create = async (req: Request, res: Response): Promise<Customer> => {
+const RegisterCustomer = async (
+  req: Request,
+  res: Response
+): Promise<Customer> => {
   let request = req.body;
 
   //Create the address
@@ -45,4 +48,4 @@ const Create = async (req: Request, res: Response): Promise<Customer> => {
   return customer;
 };
 
-export default Create;
+export default RegisterCustomer;

@@ -7,6 +7,7 @@ import userController from "./Controllers/UserController";
 import storageAddressController from "./Controllers/StorageAddressController";
 import productController from "./Controllers/ProductController";
 import customerController from "./Controllers/CustomerController";
+import authController from "./Controllers/AuthController";
 
 dotenv.config();
 
@@ -22,8 +23,8 @@ app.use("/api/users", userController);
 app.use("/api/storage-addresses", storageAddressController);
 app.use("/api/products", productController);
 app.use("/api/customers", customerController);
+app.use("/api/auth", authController);
 
 app.listen(port, () => {
   console.log("🦻 listening on " + port);
 });
-// });
